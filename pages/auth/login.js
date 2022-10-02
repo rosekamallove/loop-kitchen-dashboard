@@ -1,3 +1,5 @@
+import axios from "axios";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -5,15 +7,55 @@ export default function Login() {
   const router = useRouter();
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
+  const [error, setError] = useState(null);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
+    const users = await getUsers();
+    validateUsers(users) ? updateLoggedIn() : setError("Invalid Credentials");
+  };
+
+  const validateUsers = (users) => {
+    let loggedIn = false;
+    if (users)
+      users.map((user) => {
+        if (
+          user.fields.username === username &&
+          user.fields.password === password
+        )
+          loggedIn = true;
+      });
+
+    return loggedIn;
+  };
+
+  const getUsers = async () => {
+    const data = await axios.get(
+      "https://api.airtable.com/v0/appjWdL7YgpxIxCKA/credenitals",
+      {
+        params: {
+          maxRecords: "3",
+          view: "Grid view",
+        },
+        headers: {
+          Authorization: "Bearer keyfXgn8PL6pB3x32",
+        },
+      }
+    );
+    const users = data.data.records;
+    return users;
+  };
+
+  const updateLoggedIn = () => {
+    setError(null);
     localStorage.setItem("Authenticated", true);
-    console.log({ username, password });
     router.push("/");
   };
 
   return (
     <>
+      <Head>
+        <title>Login - Loop Kitchen</title>
+      </Head>
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
@@ -26,6 +68,7 @@ export default function Login() {
               Sign in to your account
             </h2>
           </div>
+          <p className="text-center text-red-600 opacity-70 text-lg">{error}</p>
           <form
             className="mt-8 space-y-6"
             onSubmit={(e) => {
