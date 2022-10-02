@@ -1,3 +1,8 @@
+import {
+  ArrowTopRightOnSquareIcon,
+  HomeIcon,
+  InboxIcon,
+} from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -7,10 +12,17 @@ export default function Layout({ children }) {
     {
       href: "/",
       title: "Homepage",
+      icon: HomeIcon,
     },
     {
       href: "/bookmarks",
       title: "Bookmarks",
+      icon: InboxIcon,
+    },
+    {
+      href: "/auth/logout",
+      title: "Log Out",
+      icon: ArrowTopRightOnSquareIcon,
     },
   ];
 
@@ -21,20 +33,31 @@ export default function Layout({ children }) {
           <nav>
             <ul>
               <li>
-                <img
-                  className="h-20 px-2"
-                  src="https://loopkitchen.xyz/static/media/logo.82da03003282fdccf660.avif"
-                />
+                <div className="flex justify-center items-center">
+                  <img
+                    className="h-20"
+                    src="https://loopkitchen.xyz/static/media/logo.82da03003282fdccf660.avif"
+                  />
+                </div>
               </li>
-              {menuItems.map(({ href, title }) => (
-                <li className="m-2" key={title}>
-                  <Link href={href}>
+              {menuItems.map((n) => (
+                <li className="m-2" key={n.title}>
+                  <Link href={n.href}>
                     <a
-                      className={`flex p-2 bg-white rounded hover:bg-gray-50 cursor-pointer transition-all ${
-                        router.asPath === href && "font-bold shadow"
+                      className={`group flex hover:bg-gray-100 items-center px-2 py-2 text-base font-medium rounded-md transition-all ${
+                        router.asPath === n.href
+                          ? "font-bold text-cyan-900 bg-gray-100 shadow"
+                          : "text-gray-400"
                       }`}
                     >
-                      {title}
+                      <n.icon
+                        className={`mr-4 flex-shrink-0 h-6 w-6 transition-all ${
+                          router.asPath === n.href
+                            ? "text-cyan-900"
+                            : "text-gray-300 group-hover:text-gray-300"
+                        }`}
+                      ></n.icon>
+                      {n.title}
                     </a>
                   </Link>
                 </li>
