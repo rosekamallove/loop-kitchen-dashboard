@@ -36,7 +36,7 @@ export default function Layout({ children, title }) {
         <aside className="bg-cyan-800 w-full md:w-72">
           <nav>
             <ul>
-              <li className="my-10">
+              <li className="mt-5 mb-10">
                 <div className="flex justify-center items-center">
                   <img
                     className="h-16"

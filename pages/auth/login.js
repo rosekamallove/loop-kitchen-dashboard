@@ -9,11 +9,6 @@ export default function Login() {
   const [password, setPassword] = useState(null);
   const [error, setError] = useState(null);
 
-  const onSubmit = async () => {
-    const users = await getUsers();
-    validateUsers(users) ? updateLoggedIn() : setError("Invalid Credentials");
-  };
-
   const validateUsers = (users) => {
     let loggedIn = false;
     if (users)
@@ -51,6 +46,11 @@ export default function Login() {
     router.push("/");
   };
 
+  const onSubmit = async () => {
+    const users = await getUsers();
+    validateUsers(users) ? updateLoggedIn() : setError("Invalid Credentials");
+  };
+
   return (
     <>
       <Head>
@@ -60,11 +60,11 @@ export default function Login() {
         <div className="w-full max-w-md space-y-8">
           <div>
             <img
-              className="mx-auto h-12 w-auto"
+              className="mx-auto h-32 w-auto"
               src="https://loopkitchen.xyz/static/media/logo.82da03003282fdccf660.avif"
               alt="Your Company"
             />
-            <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+            <h2 className="mt-6 text-center text-2xl font-medium text-gray-600">
               Sign in to your account
             </h2>
           </div>
@@ -87,7 +87,7 @@ export default function Login() {
                   name="username"
                   type="text"
                   required
-                  className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-cyan-900 focus:outline-none focus:ring-cyan-900 sm:text-sm transition-all"
+                  className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-600 placeholder-gray-500 focus:z-10 focus:border-cyan-600 focus:outline-none focus:ring-cyan-600 sm:text-sm transition-all"
                   placeholder="Email address"
                   onChange={(e) => setUsername(e.target.value)}
                 />
@@ -102,7 +102,7 @@ export default function Login() {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-cyan-900 focus:outline-none focus:ring-cyan-900 sm:text-sm transition-all"
+                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-600 placeholder-gray-500 focus:z-10 focus:border-cyan-600 focus:outline-none focus:ring-cyan-600 sm:text-sm transition-all"
                   placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -112,7 +112,7 @@ export default function Login() {
             <div>
               <button
                 type="submit"
-                className="group relative flex w-full justify-center rounded-md border border-transparent bg-orange-600 py-2 px-4 text-sm font-medium text-white hover:bg-cyan-900 focus:outline-none focus:ring-2 focus:ring-cyan-900 focus:ring-offset-2 transition-all"
+                className="group relative flex w-full justify-center rounded-md border border-transparent bg-orange-600 py-2 px-4 text-sm font-medium text-white hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:ring-offset-2 transition-all"
               >
                 Sign in
               </button>
