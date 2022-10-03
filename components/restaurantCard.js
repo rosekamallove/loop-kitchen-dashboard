@@ -33,15 +33,13 @@ export const RestaurantCard = ({ title, url }) => {
   };
 
   return (
-    <div className="flex justify-center">
-      <div className="rounded-lg shadow-lg bg-white max-w-sm">
-        <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">
-          <img
-            className="rounded-t-lg"
-            src="https://mdbootstrap.com/img/new/standard/nature/182.jpg"
-            alt=""
-          />
-        </a>
+    <div className="flex justify-center w-full">
+      <div className="rounded-lg shadow-lg bg-white w-4/5 h-auto">
+        <iframe
+          src={`https://datastudio.google.com/embed/reporting/430242fa-4162-4950-a984-824b3b355b3c/page/dQMwC?params={"ds2.name2":"${title}"}`}
+          className="w-full"
+          allowFullScreen
+        />
         <div className="p-6">
           <h5 className="text-gray-900 text-xl font-medium mb-5">{title}</h5>
           <div className="flex gap-5">
