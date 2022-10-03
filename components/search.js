@@ -1,16 +1,19 @@
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import { useContext, useEffect, useState } from "react";
+import { RestaurantsContext } from "../context/restraunts.context";
 
 export default function Search() {
   const [query, setQuery] = useState(null);
   const [restaurants, setRestaurants] = useState(null);
 
+  const { liked, setLiked } = useContext(RestaurantsContext);
+
   useEffect(async () => {
     const rest = await getRestaurants();
     setRestaurants(rest);
-    console.log(restaurants);
-  }, [query]);
+  }, []);
 
   const getRestaurants = async () => {
     //https://community.airtable.com/t/view-url-filter-operator-contains/32659
@@ -20,7 +23,7 @@ export default function Search() {
         params: {
           maxRecords: "9999",
           view: "Grid view",
-          filter_Name: "Sub",
+          // filter_Name: "Sub",
         },
         headers: {
           Authorization: "Bearer keyfXgn8PL6pB3x32",
@@ -31,6 +34,9 @@ export default function Search() {
   };
 
   const updateRestraunts = () => {
+    liked.push(query);
+    setLiked(liked);
+    Cookies.set("Liked", liked);
     setQuery("");
   };
 
@@ -45,7 +51,7 @@ export default function Search() {
               placeholder="Search"
               aria-label="Search"
               aria-describedby="button-addon3"
-              value={query}
+              value={query ? query : ""}
               onChange={(e) => setQuery(e.target.value)}
             />
             {query && (
@@ -77,7 +83,7 @@ export default function Search() {
           </div>
           <button
             onClick={() => updateRestraunts()}
-            className="btn flex items-center justify-center px-6 py-2 bg-orange-600 hover:bg-cyan-900 text-white font-medium text-xs leading-tight uppercase rounded-md focus:outline-none focus:ring-0 transition-all h-10"
+            className="btn flex items-center justify-center px-6 py-2 bg-orange-500 hover:bg-cyan-900 text-white font-medium text-xs leading-tight uppercase rounded-md focus:outline-none focus:ring-0 transition-all h-10"
             type="button"
             id="button-addon3"
           >

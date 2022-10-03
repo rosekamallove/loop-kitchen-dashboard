@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { RestaurantProvider } from "../context/restraunts.context";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
@@ -36,7 +37,11 @@ function MyApp({ Component, pageProps }) {
     }
   };
 
-  return <>{authorized && <Component {...pageProps} />}</>;
+  return (
+    <RestaurantProvider>
+      {authorized && <Component {...pageProps} />}
+    </RestaurantProvider>
+  );
 }
 
 export default MyApp;
