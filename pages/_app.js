@@ -1,11 +1,15 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { RestaurantProvider } from "../context/restraunts.context";
+import { UserContext, UserProvider } from "../context/user.context";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   const [authorized, setAuthorized] = useState(false);
   const router = useRouter();
+
+  const { loggedIn } = useContext(UserContext);
+  console.log(loggedIn);
 
   useEffect(() => {
     authCheck(router.asPath);
@@ -24,9 +28,8 @@ function MyApp({ Component, pageProps }) {
   const authCheck = (url) => {
     const publicPaths = ["/auth/login"];
     const path = url.split("?")[0];
-    const authenticated = localStorage.getItem("Authenticated");
 
-    if (!authenticated && !publicPaths.includes(path)) {
+    if (!loggedIn && !publicPaths.includes(path)) {
       setAuthorized(false);
       router.push({
         pathname: "/auth/login",
@@ -38,9 +41,11 @@ function MyApp({ Component, pageProps }) {
   };
 
   return (
-    <RestaurantProvider>
-      {authorized && <Component {...pageProps} />}
-    </RestaurantProvider>
+    <UserProvider>
+      <RestaurantProvider>
+        {authorized && <Component {...pageProps} />}
+      </RestaurantProvider>
+    </UserProvider>
   );
 }
 

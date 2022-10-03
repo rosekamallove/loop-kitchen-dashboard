@@ -1,13 +1,17 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "../../context/user.context";
 
 export default function Login() {
   const router = useRouter();
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [error, setError] = useState(null);
+
+  const { setLoggedIn } = useContext(UserContext);
 
   const validateUsers = (users) => {
     let loggedIn = false;
@@ -42,7 +46,8 @@ export default function Login() {
 
   const updateLoggedIn = () => {
     setError(null);
-    localStorage.setItem("Authenticated", true);
+    setLoggedIn(true);
+    Cookies.set("loggedIn", "true");
     router.push("/");
   };
 
