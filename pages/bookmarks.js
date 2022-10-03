@@ -9,7 +9,7 @@ export default function About() {
     <Layout title="Bookmarks - Loop Kitchen">
       <div className="flex mt-20 flex-wrap gap-5 justify-center w-full">
         {bookmarked.map((l) => (
-          <RestaurantCard title={l} />
+          <RestaurantCard key={l} title={l} />
         ))}
       </div>
     </Layout>

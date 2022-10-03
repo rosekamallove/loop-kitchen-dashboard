@@ -13,7 +13,7 @@ export default function Home() {
       </div>
       <div className="flex flex-wrap gap-5 justify-center w-full">
         {liked.map((l) => (
-          <RestaurantCard title={l} />
+          <RestaurantCard key={l} title={l} />
         ))}
       </div>
     </Layout>

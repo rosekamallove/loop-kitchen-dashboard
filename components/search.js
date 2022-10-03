@@ -31,8 +31,7 @@ export default function Search({ liked, setLiked }) {
   };
 
   const updateRestraunts = () => {
-    liked.push(query);
-    setLiked(liked);
+    setLiked([...liked, query]);
     Cookies.set("Liked", liked);
     setQuery("");
   };
