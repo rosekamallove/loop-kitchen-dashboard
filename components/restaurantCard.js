@@ -19,7 +19,7 @@ export const RestaurantCard = ({ title, url }) => {
       setLiked(liked);
     } else {
       if (bookmarked) bookmarked = bookmarked.filter((l) => l !== title);
-      setBookmarked(liked);
+      setBookmarked(bookmarked);
     }
   };
 

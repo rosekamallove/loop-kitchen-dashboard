@@ -1,14 +1,11 @@
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useContext, useEffect, useState } from "react";
-import { RestaurantsContext } from "../context/restraunts.context";
+import { useEffect, useState } from "react";
 
-export default function Search() {
+export default function Search({ liked, setLiked }) {
   const [query, setQuery] = useState(null);
   const [restaurants, setRestaurants] = useState(null);
-
-  const { liked, setLiked } = useContext(RestaurantsContext);
 
   useEffect(async () => {
     const rest = await getRestaurants();

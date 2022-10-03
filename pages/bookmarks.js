@@ -1,11 +1,16 @@
+import { useContext } from "react";
 import Layout from "../components/layout";
+import { RestaurantCard } from "../components/restaurantCard";
+import { RestaurantsContext } from "../context/restraunts.context";
 
 export default function About() {
+  const { bookmarked } = useContext(RestaurantsContext);
   return (
-    <Layout title={"Bookmakrs - Loop Kitchen"}>
-      <div className="flex h-full flex-col justify-center items-center">
-        <h1 className="text-4xl mb-5 font-bold">Bookmarks</h1>
-        <span className="text-7xl">💬</span>
+    <Layout title="Bookmarks - Loop Kitchen">
+      <div className="flex mt-20 flex-wrap gap-5 justify-center w-full">
+        {bookmarked.map((l) => (
+          <RestaurantCard title={l} />
+        ))}
       </div>
     </Layout>
   );
